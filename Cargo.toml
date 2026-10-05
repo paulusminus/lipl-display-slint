@@ -1,0 +1,57 @@
+[package]
+name = "lipl-display-slint"
+authors = ["Paul Min"]
+description = "Displaying part on the screen using slint"
+edition = "2024"
+homepage = "https://www.paulmin.nl/lipl"
+license = "MIT"
+repository = "https://github.com/paulmin/lipl-display-slint"
+version = "0.1.3"
+build = "build.rs"
+
+[profile.release]
+lto = true
+strip = true
+codegen-units = 1
+debug = false
+
+[dependencies]
+anyhow = "1.0.102"
+lipl-display-common = "0.4.8"
+lipl-gatt-zbus = "0.4.8"
+login-poweroff-reboot-zbus = "0.4.8"
+serde = { version = "1.0.228", features = ["derive"] }
+serde_with = { version = "3.19.0", default-features = false, features = ["macros"] }
+slint = { version = "1.18.1", default-features = false, features = ["std", "compat-1-2", "renderer-femtovg", "backend-linuxkms"] }
+tracing = "0.1.44"
+tracing-log = "0.2.0"
+tracing-appender = "0.2.5"
+tracing-subscriber = { version = "0.3.23", features = ["registry"] }
+toml = "1.1.2"
+tokio = { version = "1.53.2", features = ["macros"] }
+futures-util = "0.3.34"
+
+[build-dependencies]
+slint-build = "1.16.1"
+
+[package.metadata.deb]
+priority = "optional"
+section = "misc"
+depends = "libinput10, seatd, libgbm1, libxkbcommon0, libegl1, libfontconfig1, passwd"
+maintainer-scripts = "pkg/debian/"
+assets = [
+  [
+    "../../target/aarch64-unknown-linux-gnu/release/lipl-display-slint",
+    "/usr/bin/",
+    "755",
+  ],
+  [
+    "pkg/common/lipl.toml",
+    "/etc/",
+    "664",
+  ],
+]
+systemd-units = [
+  { unit-name = "lipl", unit-scripts = "pkg/common", enable = false },
+]
+conf-files = ["/etc/lipl.toml"]
