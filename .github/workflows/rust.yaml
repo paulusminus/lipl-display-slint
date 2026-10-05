@@ -21,6 +21,6 @@ jobs:
       - name: formatting
         run: cargo fmt --all -- --check
       - name: clippy slint version
-        run: cargo clippy --no-deps -- -D warnings
+        run: cargo clippy -- --no-deps -D warnings
       - name: build slint version
         run: cargo build --release
