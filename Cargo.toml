@@ -6,7 +6,7 @@ edition = "2024"
 homepage = "https://www.paulmin.nl/lipl"
 license = "MIT"
 repository = "https://github.com/paulmin/lipl-display-slint"
-version = "0.1.3"
+version = "0.4.8"
 build = "build.rs"
 
 [profile.release]
