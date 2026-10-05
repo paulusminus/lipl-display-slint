@@ -1,0 +1,28 @@
+name: Release lipl-display-slint for pi
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04-arm
+    permissions:
+      contents: write
+    steps:
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y libdbus-1-dev pkg-config
+      - uses: actions/checkout@v7
+      - uses: Swatinem/rust-cache@v2
+      - uses: cargo-bins/cargo-binstall@main
+      - name: Install cargo-deb
+        run: cargo binstall cargo-deb
+      - name: Build debian package
+        run: cargo-deb -v
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "target/debian/*.deb"
