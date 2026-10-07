@@ -2345,9 +2345,9 @@ dependencies = [
 
 [[package]]
 name = "lipl-gatt-zbus"
-version = "0.4.8"
+version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a7727511edda5409a5a77a453d10463fa52101e01221f0facdea9f01e2be6cbf"
+checksum = "2da10c4fae14a42e10e7d7249cc0a7b6718ca537bcd1c8e1b665017d48d1918c"
 dependencies = [
  "derive_builder",
  "futures",

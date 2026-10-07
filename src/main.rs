@@ -73,7 +73,7 @@ async fn main() -> anyhow::Result<()> {
 
     tokio::spawn(async move {
         let mut gatt = GattListener::new();
-        while let Some(message) = gatt.next().await {
+        while let Some(Ok(message)) = gatt.next().await {
             handle_message(ui_handle.clone(), message.clone()).await;
             if message.is_stop() {
                 break;
