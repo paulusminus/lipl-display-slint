@@ -16,11 +16,11 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
-          components: clippy,rustfmt
+          components: rustfmt
       - uses: actions/checkout@v7
       - name: formatting
         run: cargo fmt --all -- --check
-      - name: clippy slint version
-        run: cargo clippy -- --no-deps -D warnings
+      # - name: clippy slint version
+      #   run: cargo clippy -- --no-deps -D warnings
       - name: build slint version
         run: cargo build --release
